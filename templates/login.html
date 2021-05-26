@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+</head>
+<body>
+<style>
+    #container{
+        background-color: aquamarine;
+        margin: auto;
+        text-align:center;
+    }
+</style>
+
+
+  <div id="container">
+        <h1>用户登录</h1>
+        <br>
+        <form class="form-horizontal" method="post" action="/login/">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="inputUsername" class="col-md-2 control-label">用户名</label>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="inputUsername" placeholder="username" name="username">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword" class="col-md-2 control-label">密码</label>
+                <div class="col-md-6">
+                    <input type="password" class="form-control" id="inputPassword" placeholder="password" name="password">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputConfirm" class="col-md-2 control-label">确认密码</label>
+                <div class="col-md-6">
+                    <input type="password" class="form-control" id="inputConfirm" placeholder="confirm password" name="repassword">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-md-10">
+                    <button type="submit" class="btn btn-primary col-md-3">登&nbsp;&nbsp;&nbsp;&nbsp;陆</button>
+                </div>
+            </div>
+        </form>
+      {{ msg }}
+  </div>
+
+</body>
+</html>
