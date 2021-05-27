@@ -115,19 +115,21 @@ def cart(request):
     # 若是用户未登录，跳转到登录页面
     if not request.session.get('uid'):
         render(request, 'login.html', {'msg': '请先登录！'})
-    gid = request.GET.get('gid', 1)
+    gid = request.POST.get('gid', 1)
     print(gid)  # None  <class 'NoneType'>
     print(type(gid))
     uid = request.session.get('uid')
     user = User.objects.filter(id=uid).first()
     good = Goods.objects.filter(id=gid).first()
-    cart = Cart()
-    if cart.goods_id == good.id:
-        cart.count += 1
+    carts = Cart.objects.all()
+    cart_good_list = []
+    for cart2 in carts:
+        cart_good_list.append(cart2.goods_id)
+    if good.id in cart_good_list:
+        cart3 = Cart.objects.filter(goods_id=gid).first()
+        cart3.count += 1
     else:
-        cart.user = user
-        cart.goods = good
-    cart.save()
+        Cart.objects.create(user_id=user.id, goods_id=good.id)
     return JsonResponse({'status': 'ok'}, content_type='application/json')
 
 

@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/static/bootstrap-3.4.1/dist/css/bootstrap.css">
-{#    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.4.1.min.js"></script>#}
+    {#    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.4.1.min.js"></script>#}
 
-　　<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+    　　
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
 
     <script src="/static/bootstrap-3.4.1/dist/js/bootstrap.js"></script>
-
 
 
     <title>首页</title>
@@ -25,8 +25,9 @@
         height: auto;
         width: auto;
     }
-    .pagination{
-        margin:0 auto;
+
+    .pagination {
+        margin: 0 auto;
     }
 
 
@@ -35,61 +36,61 @@
 <body>
 
 {% block navbar %}
-{#导航栏#}
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Rings</a>
-        </div>
+    {#导航栏#}
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Rings</a>
+            </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">necklaces <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">bracelets</a></li>
-            </ul>
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
-            <ul class="nav navbar-nav navbar-right">
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">necklaces <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">bracelets</a></li>
+                </ul>
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
 
-                <li><a href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                         class="bi bi-heart"
-                         viewBox="0 0 16 16">
-                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                    </svg>
-                    count</a></li>
+                    <li><a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-heart"
+                             viewBox="0 0 16 16">
+                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                        </svg>
+                        count</a></li>
 
-                <li><a href="{% url 'cart1' %}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                         class="bi bi-cart4" viewBox="0 0 16 16">
-                        <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
-                    </svg>
-                    basket</a></li>
-                {% if uid %}
-                    {#                    <li>{{ user }}</li>#}
-                    <li><a href="#"> 欢迎！ {{ user.name }}</a></li>
-                    <li><a href="{% url 'logout' %}">logout</a></li>
-                {% else %}
-                    <li><a href="{% url 'register' %}">register</a></li>
-                    <li><a href="{% url 'login' %}">login</a></li>
-                {% endif %}
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-</nav>
+                    <li><a href="{% url 'cart1' %}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-cart4" viewBox="0 0 16 16">
+                            <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+                        </svg>
+                        basket</a></li>
+                    {% if uid %}
+                        {#                    <li>{{ user }}</li>#}
+                        <li><a href="#"> 欢迎！ {{ user.name }}</a></li>
+                        <li><a href="{% url 'logout' %}">logout</a></li>
+                    {% else %}
+                        <li><a href="{% url 'register' %}">register</a></li>
+                        <li><a href="{% url 'login' %}">login</a></li>
+                    {% endif %}
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
 {% endblock %}
 
 
@@ -100,128 +101,129 @@
 
 
 {% block content %}
-{# 详细商品板块 #}
+    {# 详细商品板块 #}
 
-{% for good in goods %}
+    {% for good in goods %}
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <img class="image_a" src=" {{ good.image.url }}" alt="...">
+                <div class="caption">
+                    <h3>{{ good.name }}</h3>
+                    <p>价格:{{ good.price }} {{ good.unite }} </p>
+                    <p>库存: {{ good.stock }}</p>
+                    <p id="good-id">{{ good.id }}</p>
+                    {% csrf_token %}
+                    <p><a href="{% url 'cart' %}" class="btn btn-primary" role="button"
+                          type="button">加入购物车{{ cart.count }}</a> <a
+                            href="#" class="btn btn-default"
+                            role="button">确认购买</a>
+                        {% csrf_token %}
+                        <a href="{% url 'userlove' %}" class="btn btn-default" role="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-heart"
+                                 viewBox="0 0 16 16">
+                                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                            </svg>
+                        </a></p>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                {#收藏模块#}
+                $('.btn-default').click(function () {
+                    let $this = $(this);
+                    {#$.get('{% url 'userlove' %}', {'gid': {{ good.id }}}, function (data){#}
+                    {#$this.children('svg').css({'color': 'red'});#}
+                    $.ajax({
+                        type: 'get',
+                        url: "{% url 'userlove' %}?id={{ good.id }}",
+                        traditional: true,
+                        {#data: {"gid": {{ good.id }}},#}
+                        dataType: 'json',
+                        success: function (resp) {
+                            console.log(resp)
+                            if (resp.msg == 'success') {
+                                $this.children('svg').css({'color': 'red'});
+                            }
+                        }
+                        {#$.getJSON('{% url 'userlove' %}', {'gid': {{ good.id }}}, function (data){#}
+                        {#    if (data.msg == 'success'){#}
+                        {#        $this.children('svg').css({'color': 'red'});#}
+                        {#    }#}
+
+                    });
+                    {#加入购物车#}
+                    $('#is-cart').click(function () {
+                        let $this = $(this);
+                        var s = $('#good-id').val();
+                        $.ajax({
+                            type: 'post',
+                            url: '{% url 'cart' %}',
+                            dataType: 'json',
+                            contentType: "application/json",
+                            {#contentType: false,#}
+                            processData: false,
+                            data: {'gid':{{ good.id }}},
+                            success: function (data) {
+                                console.log(data);
+                            }
+                        });
+
+                    })
+                })
+            })
+        </script>
+
+    {% endfor %}
+
+    {% for contact in pages %}
+        {# Each "contact" is a Contact model object. #}
+        {{ contact.full_name|upper }}<br>
+        ...
+    {% endfor %}
+
+
     <div class="col-sm-6 col-md-4">
         <div class="thumbnail">
-            <img class="image_a" src=" {{ good.image.url }}" alt="...">
+            <img src="/static/image/DR.jpg" alt="...">
             <div class="caption">
-                <h3>{{ good.name }}</h3>
-                <p>价格:{{ good.price }} {{ good.unite }} </p>
-                <p>库存: {{ good.stock }}</p>
-                <p id="good-id">{{ good.id }}</p>
-                {% csrf_token %}
-                <p><a href="{% url 'cart' %}" class="btn btn-primary" role="button" type="button">加入购物车{{ cart.count }}</a> <a
-                        href="#" class="btn btn-default"
-                        role="button">确认购买</a>
-                    {% csrf_token %}
-                    <a href="{% url 'userlove' %}" class="btn btn-default" role="button">
+                <h3>1111</h3>
+                <p>12克拉,尊享版</p>
+                <p><a href="#" class="btn btn-primary" id="is-cart" role="button">加入购物车</a> <a href="#"
+                                                                                               class="btn btn-default"
+                                                                                               role="button">确认购买</a>
+
+                    <a href="#" class="btn btn-default" role="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-heart"
                              viewBox="0 0 16 16">
                             <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
                         </svg>
                     </a></p>
+
             </div>
         </div>
     </div>
 
-    <script>
-        $(document).ready(function () {
-            {#收藏模块#}
-            $('.btn-default').click(function () {
-                let $this = $(this);
-                {#$.get('{% url 'userlove' %}', {'gid': {{ good.id }}}, function (data){#}
-                {#$this.children('svg').css({'color': 'red'});#}
-                $.ajax({
-                    type: 'get',
-                    url: "{% url 'userlove' %}?id={{ good.id }}",
-                    traditional: true,
-                    {#data: {"gid": {{ good.id }}},#}
-                    dataType: 'json',
-                    success: function (resp) {
-                        console.log(resp)
-                        if (resp.msg == 'success') {
-                            $this.children('svg').css({'color': 'red'});
-                        }
-                    }
-                    {#$.getJSON('{% url 'userlove' %}', {'gid': {{ good.id }}}, function (data){#}
-                    {#    if (data.msg == 'success'){#}
-                    {#        $this.children('svg').css({'color': 'red'});#}
-                    {#    }#}
 
-                });
-
-                $('#is-cart').click(function () {
-                    let $this = $(this);
-                    var s = $('#good-id').val();
-                    $.ajax({
-                        type: 'get',
-                        url: '{% url 'cart' %}',
-                        dataType: 'json',
-                        contentType: "application/json",
-                        {#contentType: false,#}
-                        processData: false,
-                        data: {'gid':{{ good.id }}},
-                        success: function (data) {
-                            console.log(data);
-                        }
-                    });
-
-                })
-            })
-        })
-    </script>
-
-{% endfor %}
-
-    {% for contact in pages %}
-    {# Each "contact" is a Contact model object. #}
-    {{ contact.full_name|upper }}<br>
-    ...
-{% endfor %}
-
-
-<div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-        <img src="/static/image/DR.jpg" alt="...">
-        <div class="caption">
-            <h3>1111</h3>
-            <p>12克拉,尊享版</p>
-            <p><a href="#" class="btn btn-primary" id="is-cart" role="button">加入购物车</a> <a href="#"
-                                                                                           class="btn btn-default"
-                                                                                           role="button">确认购买</a>
-
-                <a href="#" class="btn btn-default" role="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                         class="bi bi-heart"
-                         viewBox="0 0 16 16">
-                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                    </svg>
-                </a></p>
-
+    <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+            <img src="https://elove.darryring.com/group1/M00/29/02/wKgc6F-iIf2AdHHTAAMIOwTJGzY844.jpg" alt="...">
+            <div class="caption">
+                <h3>DR钻戒</h3>
+                <p>12克拉,尊享版</p>
+                <p><a href="#" class="btn btn-primary" role="button">加入购物车</a> <a href="#" class="btn btn-default"
+                                                                                  role="button">确认购买</a></p>
+            </div>
         </div>
     </div>
-</div>
-
-
-<div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-        <img src="https://elove.darryring.com/group1/M00/29/02/wKgc6F-iIf2AdHHTAAMIOwTJGzY844.jpg" alt="...">
-        <div class="caption">
-            <h3>DR钻戒</h3>
-            <p>12克拉,尊享版</p>
-            <p><a href="#" class="btn btn-primary" role="button">加入购物车</a> <a href="#" class="btn btn-default"
-                                                                              role="button">确认购买</a></p>
-        </div>
-    </div>
-</div>
 {% endblock %}
 
 {% block footer %}
-{#分页#}
-<div class="pagination">
+    {#分页#}
+    <div class="pagination">
     <span class="step-links">
         {% if contacts.has_previous %}
             <a href="?page=1">&laquo; first</a>
@@ -237,7 +239,7 @@
             <a href="?page={{ contacts.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
     </span>
-</div>
+    </div>
 {% endblock %}
 </body>
 </html>
