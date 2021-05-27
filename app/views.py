@@ -111,7 +111,6 @@ def userlove(request):
 
 
 # 购物车模块
-@csrf_exempt
 def cart(request):
     # 若是用户未登录，跳转到登录页面
     if not request.session.get('uid'):
@@ -136,14 +135,13 @@ def cart(request):
 def cart1(request):
     goods = Goods.objects.all()
     uid = request.session.get('uid')
-    cart = Cart.objects.all()
+    # 显示该用户的购物车
+    carts = Cart.objects.filter(user_id=uid)
     if not uid:
         return render(request, 'index.html')
     user = User.objects.get(id=uid)
     # print(type(goods))
 
-    return render(request, 'cart.html', {'goods': goods, 'user': user, 'uid': uid, 'cart': cart})
-
+    return render(request, 'cart.html', locals())
 
 # 订单详情
-

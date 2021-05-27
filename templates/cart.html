@@ -81,7 +81,7 @@
     <h1> 欢迎来到购物车 ！ <small></small></h1>
 </div>
 
-{% for cart in cart %}
+{% for cart in carts %}
     {% for good in goods %}
         {% if cart.goods_id == good.id %}
             <div class="row">
