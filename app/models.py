@@ -49,3 +49,8 @@ class Cart(models.Model):
     class Meta:
         verbose_name = '购物车'
         verbose_name_plural = verbose_name
+
+
+# 订单
+class Order(models.Model):
+    pass

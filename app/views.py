@@ -1,6 +1,7 @@
 import json
 
 from django.contrib import auth
+from django.core.paginator import Paginator
 from django.http import HttpResponse, JsonResponse
 
 from django.shortcuts import render, redirect
@@ -77,7 +78,11 @@ def index(request):
         return render(request, 'index.html')
     user = User.objects.get(id=uid)
     # print(type(goods))
-    return render(request, 'index.html', {'goods': goods, 'user': user, 'uid': uid})
+    paginator = Paginator(goods, 1)
+    page = request.GET.get('page')
+    contacts = paginator.get_page(page)
+    # {'goods': goods, 'user': user, 'uid': uid}
+    return render(request, 'index.html', locals())
 
 
 # 用户登出
@@ -127,6 +132,7 @@ def cart(request):
     return JsonResponse({'status': 'ok'}, content_type='application/json')
 
 
+# 购物车详情
 def cart1(request):
     goods = Goods.objects.all()
     uid = request.session.get('uid')
@@ -136,4 +142,8 @@ def cart1(request):
     user = User.objects.get(id=uid)
     # print(type(goods))
 
-    return render(request, 'cart.html', {'goods': goods, 'user': user, 'uid': uid, 'cart':cart})
+    return render(request, 'cart.html', {'goods': goods, 'user': user, 'uid': uid, 'cart': cart})
+
+
+# 订单详情
+
