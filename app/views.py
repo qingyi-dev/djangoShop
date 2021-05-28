@@ -150,4 +150,26 @@ def cart1(request):
 
     return render(request, 'cart.html', locals())
 
-# 订单详情
+
+# 商品数量减少
+def countsub(request):
+    # cid = request.GET.get('cid')
+    # print(cid)
+    cid = request.GET.get('gid')
+    print(cid)
+    cart = Cart.objects.filter(id=cid).first()
+    cart.count -= 1
+    cart.save()
+    return JsonResponse({'status': 'ok', 'count': cart.count})
+
+
+# 商品数量增加
+def countadd(request):
+    # cid = request.GET.get('cid')
+    # print(cid)
+    cid = request.GET.get('gid')
+    print(cid)
+    cart = Cart.objects.filter(id=cid).first()
+    cart.count += 1
+    cart.save()
+    return JsonResponse({'status': 'ok', 'count': cart.count}) # bug这里总价未改变

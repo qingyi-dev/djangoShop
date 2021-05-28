@@ -20,18 +20,19 @@ from django.contrib import admin
 from django.urls import path
 
 from app import views
-from app.views import cart, cart1
+from app.views import cart, cart1, countsub, countadd
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    url(r'^hello$', views.hello),
-    url(r'^register/', views.register, name='register'),
-    url(r'^login/', views.login, name='login'),
-    url(r'^index/', views.index, name='index'),
-    url(r'^logout/', views.logout, name='logout'),
-    url(r'^userlove/', views.userlove, name='userlove'),
-    path('cart/', cart, name='cart'),
-    path('cart1/', cart1, name='cart1'),
+                  path('admin/', admin.site.urls),
+                  url(r'^hello$', views.hello),
+                  url(r'^register/', views.register, name='register'),
+                  url(r'^login/', views.login, name='login'),
+                  url(r'^index/', views.index, name='index'),
+                  url(r'^logout/', views.logout, name='logout'),
+                  url(r'^userlove/', views.userlove, name='userlove'),
+                  path('cart/', cart, name='cart'),
+                  path('cart1/', cart1, name='cart1'),
+                  path('countsub/', countsub, name='countsub'),
+                  path('countadd/', countadd, name='countadd'),
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
