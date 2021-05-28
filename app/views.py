@@ -74,6 +74,7 @@ def login(request):
 def index(request):
     goods = Goods.objects.all()
     uid = request.session.get('uid')
+    carts = Cart.objects.filter(user_id=uid).all()
     if not uid:
         return render(request, 'index.html')
     user = User.objects.get(id=uid)
@@ -115,9 +116,10 @@ def cart(request):
     # 若是用户未登录，跳转到登录页面
     if not request.session.get('uid'):
         render(request, 'login.html', {'msg': '请先登录！'})
-    gid = request.POST.get('gid', 1)
+    gid = request.GET.get('gid', 1)
     print(gid)  # None  <class 'NoneType'>
-    print(type(gid))
+    # print(type(gid))  # str
+    gid = int(gid)
     uid = request.session.get('uid')
     user = User.objects.filter(id=uid).first()
     good = Goods.objects.filter(id=gid).first()
@@ -134,10 +136,10 @@ def cart(request):
     else:
         a = Cart.objects.create(user_id=user.id, goods_id=good.id)
         # print(a)
-    return JsonResponse({'status': 'ok'}, content_type='application/json')
+    return JsonResponse({'status': 'ok', 'count': cart3.count})
 
 
-# 购物车详情
+# 购物车详情 右上角
 def cart1(request):
     goods = Goods.objects.all()
     uid = request.session.get('uid')
@@ -172,4 +174,4 @@ def countadd(request):
     cart = Cart.objects.filter(id=cid).first()
     cart.count += 1
     cart.save()
-    return JsonResponse({'status': 'ok', 'count': cart.count}) # bug这里总价未改变
+    return JsonResponse({'status': 'ok', 'count': cart.count})  # bug这里总价未改变

@@ -102,7 +102,6 @@
 
 {% block content %}
     {# 详细商品板块 #}
-
     {% for good in goods %}
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
@@ -111,10 +110,17 @@
                     <h3>{{ good.name }}</h3>
                     <p>价格:{{ good.price }} {{ good.unite }} </p>
                     <p>库存: {{ good.stock }}</p>
-                    <p id="good-id">{{ good.id }}</p>
+                    {% for cart in carts %}
+                        {% if cart.goods_id == good.id %}
+                            <p>购物车数量:<span id="up-count">{{ cart.count }}</span></p>
+                        {% else %}
+{#                            <p>购物车数量:<span id="up-count"> 0 </span></p>#}
+                        {% endif %}
+                    {% endfor %}
+                    <p id="good-id" tag="{{ good.id }}">{{ good.id }}</p>
                     {% csrf_token %}
-                    <p><a href="{% url 'cart' %}" class="btn btn-primary" role="button"
-                          type="button">加入购物车{{ cart.count }}</a> <a
+                    <p><a href="#" class="btn btn-primary" id="is-cart" role="button"
+                          type="button">加入购物车</a> <a
                             href="#" class="btn btn-default"
                             role="button">确认购买</a>
                         {% csrf_token %}
@@ -129,52 +135,7 @@
             </div>
         </div>
 
-        <script>
-            $(document).ready(function () {
-                {#收藏模块#}
-                $('.btn-default').click(function () {
-                    let $this = $(this);
-                    {#$.get('{% url 'userlove' %}', {'gid': {{ good.id }}}, function (data){#}
-                    {#$this.children('svg').css({'color': 'red'});#}
-                    $.ajax({
-                        type: 'get',
-                        url: "{% url 'userlove' %}?id={{ good.id }}",
-                        traditional: true,
-                        {#data: {"gid": {{ good.id }}},#}
-                        dataType: 'json',
-                        success: function (resp) {
-                            console.log(resp)
-                            if (resp.msg == 'success') {
-                                $this.children('svg').css({'color': 'red'});
-                            }
-                        }
-                        {#$.getJSON('{% url 'userlove' %}', {'gid': {{ good.id }}}, function (data){#}
-                        {#    if (data.msg == 'success'){#}
-                        {#        $this.children('svg').css({'color': 'red'});#}
-                        {#    }#}
 
-                    });
-                    {#加入购物车#}
-                    $('#is-cart').click(function () {
-                        let $this = $(this);
-                        var s = $('#good-id').val();
-                        $.ajax({
-                            type: 'post',
-                            url: '{% url 'cart' %}',
-                            dataType: 'json',
-                            contentType: "application/json",
-                            {#contentType: false,#}
-                            processData: false,
-                            data: {'gid':{{ good.id }}},
-                            success: function (data) {
-                                console.log(data);
-                            }
-                        });
-
-                    })
-                })
-            })
-        </script>
 
     {% endfor %}
 
@@ -243,4 +204,45 @@
 {% endblock %}
 </body>
 </html>
+<script>
+    $(document).ready(function () {
+        {#加入购物车#}
+        $('#is-cart').click(function () {
+            let $this = $(this);
+            var good = $('#good-id').attr('tag')
+            $.get('/cart/', {'gid': good}, function (data) {
+                if (data.status == 'ok') {
+                    $('#up-count').html(data.count)
+                }
+            })
+        });
 
+    })
+
+    {#收藏模块#}
+    $('.btn-default').click(function () {
+        let $this = $(this);
+        {#$.get('{% url 'userlove' %}', {'gid': {{ good.id }}}, function (data){#}
+        {#$this.children('svg').css({'color': 'red'});#}
+        $.ajax({
+            type: 'get',
+            url: "{% url 'userlove' %}?id={{ good.id }}",
+            traditional: true,
+            {#data: {"gid": {{ good.id }}},#}
+            dataType: 'json',
+            success: function (resp) {
+                console.log(resp)
+                if (resp.msg == 'success') {
+                    $this.children('svg').css({'color': 'red'});
+                }
+            }
+            {#$.getJSON('{% url 'userlove' %}', {'gid': {{ good.id }}}, function (data){#}
+            {#    if (data.msg == 'success'){#}
+            {#        $this.children('svg').css({'color': 'red'});#}
+            {#    }#}
+
+        });
+
+
+    })
+</script>
