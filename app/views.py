@@ -124,12 +124,16 @@ def cart(request):
     carts = Cart.objects.all()
     cart_good_list = []
     for cart2 in carts:
-        cart_good_list.append(cart2.goods_id)
+        cart_good_list.append(cart2.goods.id)
     if good.id in cart_good_list:
         cart3 = Cart.objects.filter(goods_id=gid).first()
+        # print(cart3.count)
         cart3.count += 1
+        # print(cart3.count)
+        cart3.save()
     else:
-        Cart.objects.create(user_id=user.id, goods_id=good.id)
+        a = Cart.objects.create(user_id=user.id, goods_id=good.id)
+        # print(a)
     return JsonResponse({'status': 'ok'}, content_type='application/json')
 
 
