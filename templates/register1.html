@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+</head>
+<body>
+<style>
+    #container {
+        background-color: aquamarine;
+        margin: auto;
+        text-align: center;
+    }
+</style>
+
+
+<div id="container">
+    <h1>用户注册</h1>
+    <form class="form-horizontal" method="post" action="/register/">
+        {% csrf_token %}
+        <tr>
+            <th><label for="id_name">用户名:</label></th>
+            <td>
+                <ul class="errorlist">
+                    <li>这个字段是必填项{{ form.errors }}</li>
+                </ul>
+                <input type="text" name="name" maxlength="56" required
+                       id="id_name"></td>
+        </tr>
+        <tr>
+            <th><label for="id_password">密码:</label></th>
+            <td><input type="text" name="password" maxlength="256" required id="id_password"></td>
+        </tr>
+
+
+        <div class="form-group">
+            <label for="inputConfirm" class="col-md-2 control-label">确认密码</label>
+            <div class="col-md-6">
+                <input type="password" class="form-control" id="inputConfirm" placeholder="confirm password"
+                       name="repassword">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-md-10">
+                <button type="submit" class="btn btn-primary col-md-3">注&nbsp;&nbsp;&nbsp;&nbsp;册</button>
+            </div>
+        </div>
+    </form>
+    <span>{{ msg }}</span>
+</div>
+
+</body>
+</html>

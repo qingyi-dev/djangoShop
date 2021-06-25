@@ -94,8 +94,8 @@
                 <p id="row-name">商品名称： {{ good.name }}</p>
                 <p id="row-price">商品价格： <i id="good-price">{{ good.price }}</i></p>
                 <p>购买数量：<span href="#" class="glyphicon glyphicon-minus" id="count-sub"
-                              tag="{{ cart.id }}" aria-hidden="true"></span> <i id="cart-cou">{{ cart.count }}</i>
-                    <span href="#" class="glyphicon glyphicon-plus" id="count-add" tag="{{ cart.id }}"
+                              data-tag="{{ cart.id }}" aria-hidden="true"></span> <i id="cart-cou">{{ cart.count }}</i>
+                    <span href="#" class="glyphicon glyphicon-plus" id="count-add" data-tag="{{ cart.id }}"
                           aria-hidden="true"></span></p>
                 <p>总价：<i id="cart-nump">{% widthratio good.price 1 cart.count %}</i> {{ good.unite }}</p>
                 <button href="#">确认付款</button>
@@ -123,14 +123,15 @@
                 }
             })
         });
+
         {#商品数量增加#}
         {#$('#count-add').click(function () {#}
          $(document).on('click', '#count-add', function (){
             let $this = $(this);
             let $price = $('#good-price').html();
-            var cart = $this.attr('tag');
-            $.get('/countadd/', {'gid': cart}, function (arg) {
-                if (arg.status == 'ok') {
+            var cart = $this.attr('data-tag');
+            $.get('/countadd/', {'gid': cart}, function (data) {
+                if (data.status == 'ok') {
                     $('#cart-cou').html(arg.count);
                     $('#cart-nump').html($price * arg.count);
                 }

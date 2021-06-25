@@ -133,3 +133,4 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')  # upload即为图片上传的根路径
 
+AUTH_USER_MODEL = 'app.User'

@@ -1,6 +1,7 @@
 import json
 
 from django.contrib import auth
+# from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.http import HttpResponse, JsonResponse
 
@@ -8,6 +9,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
+from app.forms import UserForm
 from app.models import User, Goods, Cart
 
 
@@ -42,6 +44,21 @@ def register(request):
         user.password = pwd
         user.save()
         return render(request, 'login.html')
+
+
+# 使用model form校验注册
+def register1(request):
+    if request.method == "GET":
+        form = UserForm()
+        return render(request, 'register1.html', {'form': form})
+    else:
+        form = UserForm(request.POST)
+        print(form)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+        else:
+            return render(request, 'register1.html', {'form': form})
 
 
 def login(request):
@@ -174,4 +191,4 @@ def countadd(request):
     cart = Cart.objects.filter(id=cid).first()
     cart.count += 1
     cart.save()
-    return JsonResponse({'status': 'ok', 'count': cart.count})  # bug这里总价未改变
+    return JsonResponse({'status': 'ok', 'count': cart.count, 'cid': cid})  # bug这里总价未改变

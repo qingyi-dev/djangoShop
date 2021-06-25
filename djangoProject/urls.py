@@ -25,7 +25,7 @@ from app.views import cart, cart1, countsub, countadd
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   url(r'^hello$', views.hello),
-                  url(r'^register/', views.register, name='register'),
+                  url(r'^register/', views.register1, name='register'),
                   url(r'^login/', views.login, name='login'),
                   url(r'^index/', views.index, name='index'),
                   url(r'^logout/', views.logout, name='logout'),
