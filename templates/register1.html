@@ -15,21 +15,22 @@
 
 
 <div id="container">
-    <h1>用户注册</h1>
+    <h1>用户注册</h1> <div>{{ form }}</div>
+    -----------------
     <form class="form-horizontal" method="post" action="/register/">
         {% csrf_token %}
         <tr>
             <th><label for="id_name">用户名:</label></th>
             <td>
                 <ul class="errorlist">
-                    <li>这个字段是必填项{{ form.errors }}</li>
+{#                    <li>这个值不能为 null</li>#}
                 </ul>
-                <input type="text" name="name" maxlength="56" required
-                       id="id_name"></td>
+                <input type="text" name="name"  maxlength="56
+" required id="id_name"></td>
         </tr>
         <tr>
             <th><label for="id_password">密码:</label></th>
-            <td><input type="text" name="password" maxlength="256" required id="id_password"></td>
+            <td><input type="text" name="password"  maxlength="256" required id="id_password"></td>
         </tr>
 
 

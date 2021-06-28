@@ -43,8 +43,14 @@ class GoodsType(models.Model):
 #         verbose_name_plural = verbose_name
 
 class User(AbstractUser):
-    name = models.CharField(max_length=56, null=False, unique=True, verbose_name='用户名')
-    password = models.CharField(max_length=256, null=False, verbose_name='用户密码')
+    # name = models.CharField(max_length=56, null=False, unique=True, verbose_name='用户名')
+    # password = models.CharField(max_length=256, null=False, verbose_name='用户密码')
+    # username = None
+    is_staff = None
+    last_name = None
+    is_active = True
+    email = None
+    # USERNAME_FIELD = 'name'
 
     class Meta:
         db_table = 'app_user'
@@ -54,7 +60,7 @@ class User(AbstractUser):
 class Cart(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, verbose_name='加购用户', related_name='app_cart_user')
     goods = models.ForeignKey(to=Goods, on_delete=models.CASCADE, verbose_name='加购商品')
-    count = models.IntegerField(max_length=3, default=1, verbose_name='加购数量')
+    count = models.IntegerField(default=1, verbose_name='加购数量')
 
     class Meta:
         verbose_name = '购物车'
