@@ -10,7 +10,7 @@ class Goods(models.Model):
     unite = models.CharField(max_length=20, verbose_name='商品单位')
     image = models.ImageField(upload_to='static', verbose_name='商品图片')
     stock = models.IntegerField(default=1, verbose_name='商品库存')
-    type = models.ForeignKey('GoodsType', on_delete=models.CASCADE, verbose_name='商品种类')
+    # type = models.ForeignKey('GoodsType', on_delete=models.CASCADE, verbose_name='商品种类')
     user = models.ForeignKey('User', on_delete=models.CASCADE, verbose_name='收藏用户', null=True,
                              related_name='app_goods_user')
 
