@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'djangoProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'webshop',
+        'NAME': 'webshop1',
         'USER': 'root',
         'PASSWORD': 'root',
         'PORT': 3306,

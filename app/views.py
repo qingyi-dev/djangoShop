@@ -2,6 +2,7 @@ import json
 
 from django.contrib import auth
 # from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.http import HttpResponse, JsonResponse
 
@@ -36,11 +37,11 @@ def register(request):
                 return render(request, 'register.html', {'msg': '两次密码输入不一致'})
 
         # 判断用户名是否已存在
-        if User.objects.filter(name=username).first():
+        if User.objects.filter(username=username).first():
             return render(request, 'register.html', {'msg': '用户名已存在'})
         # 一切无误，保存数据
         user = User()
-        user.name = username
+        user.username = username
         user.password = pwd
         user.save()
         return render(request, 'login.html')
@@ -48,17 +49,19 @@ def register(request):
 
 # 使用model form校验注册
 def register1(request):
-    if request.method == "GET":
-        form = UserForm()
-        return render(request, 'register1.html', {'form': form})
-    else:
+    if request.method == "POST":
+        print(request.POST)
         form = UserForm(request.POST)
         print(form)
         if form.is_valid():
+            print(111)
             form.save()
-            return redirect('login')
+            return render(request, 'login.html')
         else:
             return render(request, 'register1.html', {'form': form})
+    else:
+        form = UserForm()
+        return render(request, 'register1.html', {'form': form})
 
 
 def login(request):
@@ -75,7 +78,7 @@ def login(request):
             return render(request, 'login.html', {'msg': '数据输入不完整'})
         if pwd != repwd:
             return render(request, 'login.html', {'msg': '两次密码输入不一致'})
-        user = User.objects.filter(name=username).first()
+        user = User.objects.filter(username=username).first()
         # 判断账户
         if not user:
             return render(request, 'login.html', {'msg': '账户不存在'})
@@ -100,7 +103,7 @@ def index(request):
     page = request.GET.get('page')
     contacts = paginator.get_page(page)
     # {'goods': goods, 'user': user, 'uid': uid}
-    return render(request, 'index.html', locals())
+    return render(request, 'index.html', {'user': user, 'uid': uid, 'goods': goods, 'carts': carts})
 
 
 # 用户登出
@@ -128,7 +131,7 @@ def userlove(request):
     # return HttpResponse(json.dumps(data), content_type='application/json')
 
 
-# 购物车模块
+# 购物车页面
 def cart(request):
     # 若是用户未登录，跳转到登录页面
     if not request.session.get('uid'):
@@ -156,18 +159,27 @@ def cart(request):
     return JsonResponse({'status': 'ok', 'count': cart3.count})
 
 
-# 购物车详情 右上角
+# 进入购物车详情 右上角
+# @login_required
 def cart1(request):
-    goods = Goods.objects.all()
-    uid = request.session.get('uid')
-    # 显示该用户的购物车
-    carts = Cart.objects.filter(user_id=uid)
-    if not uid:
-        return render(request, 'index.html')
-    user = User.objects.get(id=uid)
-    # print(type(goods))
+    # print('------------')
+    # print(request.user)
+    # print('============')
+    # print(request.user.is_authenticated())
+    # if request.user.is_authenticated():
 
-    return render(request, 'cart.html', locals())
+        goods = Goods.objects.all()
+        uid = request.session.get('uid')
+        # 显示该用户的购物车
+        carts = Cart.objects.filter(user_id=uid)
+        if not uid:
+            return render(request, 'index.html')
+        user = User.objects.get(id=uid)
+        # print(type(goods))
+
+        return render(request, 'cart.html', locals())
+    # else:
+    #     return redirect('login')
 
 
 # 商品数量减少
@@ -179,7 +191,7 @@ def countsub(request):
     cart = Cart.objects.filter(id=cid).first()
     cart.count -= 1
     cart.save()
-    return JsonResponse({'status': 'ok', 'count': cart.count})
+    return JsonResponse({'status': 'ok', 'count': cart.count, 'cid': cid})
 
 
 # 商品数量增加
