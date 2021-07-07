@@ -93,12 +93,10 @@
             </div>
             <div class="cart-goods">
                 <p id="row-name">商品名称： {{ good.name }}</p>
-                <p id="row-price">商品价格： <i id="good-price">{{ good.price }}</i></p>
-                <p>购买数量：<span href="#" class="glyphicon glyphicon-minus" id="count-sub"
-                              data-tag="{{ cart.id }}" aria-hidden="true"></span> <i
-                        id="cart-cou-{{ cart.id }}">{{ cart.count }}</i>
-                    <span href="#" class="glyphicon glyphicon-plus" id="count-add" data-tag="{{ cart.id }}"
-                          aria-hidden="true"></span></p>
+                <p id="row-price">商品价格： <i id="good-price-{{ good.id }}">{{ good.price }}</i></p>
+                <p>购买数量：<span href="#" class="glyphicon glyphicon-minus" id="count-sub" data-tag="{{ good.id }}" aria-hidden="true"></span>
+                    <i id="cart-cou-{{ cart.id }}">{{ cart.count }}</i>
+                    <span href="#" class="glyphicon glyphicon-plus" id="count-add" data-tag="{{ good.id }}" aria-hidden="true"></span></p>
                 <p>总价：<i id="cart-num-{{ cart.id }}">{% widthratio good.price 1 cart.count %}</i> {{ good.unite }}</p>
                 <button href="#">确认付款</button>
             </div>
@@ -116,13 +114,13 @@
         {#购物车商品数量减少#}
         $(document).on('click', '#count-sub', function () {
             let $this = $(this);
-            let $price = $('#good-price').html();
-            var cart = $this.attr('data-tag');
-            $.get('/countsub/', {'gid': cart}, function (data) {
+            var gid = $this.attr('data-tag');
+            let $price = $('#good-price-'+ gid).html();
+            $.get('/countsub/', {'gid': gid}, function (data) {
                 if (data.status == 'ok') {
-                    var cid = data.cid;
-                    $('#cart-cou-'+ cid).html(data.count);
-                    $('#cart-num-'+ cid).html($price * data.count);
+                    var gid = data.gid;
+                    $('#cart-cou-'+ gid).html(data.count);
+                    $('#cart-num-'+ gid).html($price * data.count);
                 }
             })
         });
@@ -131,13 +129,13 @@
         {#$('#count-add').click(function () {#}
         $(document).on('click', '#count-add', function () {
             let $this = $(this);
-            let $price = $('#good-price').html();
-            var cart = $this.attr('data-tag');
-            $.get('/countadd/', {'gid': cart}, function (data) {
+            var gid = $this.attr('data-tag');
+            let $price = $('#good-price-'+ gid).html();
+            $.get('/countadd/', {'gid': gid}, function (data) {
                 if (data.status == 'ok') {
-                    var cid = data.cid;
-                    $("#cart-cou-" + cid).html(data.count);
-                    $('#cart-num-' + cid).html($price * data.count);
+                    var gid = data.gid;
+                    $("#cart-cou-" + gid).html(data.count);
+                    $('#cart-num-' + gid).html($price * data.count);
                 }
             })
         });

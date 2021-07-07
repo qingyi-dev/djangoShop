@@ -8,7 +8,7 @@ from django.http import HttpResponse, JsonResponse
 
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.views.decorators.csrf import csrf_exempt
+
 
 from app.forms import UserForm
 from app.models import User, Goods, Cart
@@ -56,9 +56,9 @@ def register1(request):
         if form.is_valid():
             print(111)
             form.save()
-            return render(request, 'login.html')
+            return redirect('login')
         else:
-            return render(request, 'register1.html', {'form': form})
+            return redirect('register1', {'form': form})
     else:
         form = UserForm()
         return render(request, 'register1.html', {'form': form})
@@ -75,15 +75,15 @@ def login(request):
         repwd = request.POST.get('repassword')
         if not all([username, pwd, repwd]):
             # 有数据为空
-            return render(request, 'login.html', {'msg': '数据输入不完整'})
+            return redirect('login', {'msg': '数据输入不完整'})
         if pwd != repwd:
-            return render(request, 'login.html', {'msg': '两次密码输入不一致'})
+            return redirect('login', {'msg': '两次密码输入不一致'})
         user = User.objects.filter(username=username).first()
         # 判断账户
         if not user:
-            return render(request, 'login.html', {'msg': '账户不存在'})
+            return redirect('login', {'msg': '账户不存在'})
         elif user.password != pwd:
-            return render(request, 'login.html', {'msg': '密码错误'})
+            return redirect('login', {'msg': '密码错误'})
         # 存入缓存
         request.session['uid'] = user.id
         # return render(request, 'index.html', {'user': user})
@@ -96,12 +96,12 @@ def index(request):
     uid = request.session.get('uid')
     carts = Cart.objects.filter(user_id=uid).all()
     if not uid:
-        return render(request, 'index.html')
+        return redirect('index')
     user = User.objects.get(id=uid)
     # print(type(goods))
-    paginator = Paginator(goods, 1)
-    page = request.GET.get('page')
-    contacts = paginator.get_page(page)
+    # paginator = Paginator(goods, 1)
+    # page = request.GET.get('page')
+    # contacts = paginator.get_page(page)
     # {'goods': goods, 'user': user, 'uid': uid}
     return render(request, 'index.html', {'user': user, 'uid': uid, 'goods': goods, 'carts': carts})
 
@@ -117,18 +117,28 @@ def logout(request):
 
 # 用户收藏模块
 def userlove(request):
-    gid = request.GET.get('gid', 1)  # 接受商品ID
+    gid = request.GET.get('gid')
     uid = request.session.get('uid')
     print(gid)
     if not uid:
-        return render(request, 'login.html', {'msg': '用户尚未登录，请登录后在进行操作！'})
+        return redirect('login', {'msg': '用户尚未登录，请登录后在进行操作！'})
     user = User.objects.get(id=uid)
-    good = Goods.objects.get(pk=gid)
-    good.user_loved = user.id
-    good.save()
-    data = {'status': 'ok', 'msg': 'success'}
-    return HttpResponse(json.dumps(data))
-    # return HttpResponse(json.dumps(data), content_type='application/json')
+    good = Goods.objects.get(id=gid)
+    if good.user_id == user.id:
+        good.user_id = None
+        good.save()
+        return JsonResponse({'status': 'cancel', 'gid': gid})
+    else:
+        good.user_id = user.id
+        good.save()
+        # print(good)
+        # print(user)
+        # data = {
+        #     'status': 'ok',
+        #     'msg': 'success',
+        #     'gid': gid
+        # }
+        return JsonResponse({'status': 'ok', 'msg': 'success', 'gid': gid})
 
 
 # 购物车页面
@@ -186,21 +196,21 @@ def cart1(request):
 def countsub(request):
     # cid = request.GET.get('cid')
     # print(cid)
-    cid = request.GET.get('gid')
-    print(cid)
-    cart = Cart.objects.filter(id=cid).first()
+    gid = request.GET.get('gid')
+    print(gid)
+    cart = Cart.objects.filter(goods_id=gid).first()
     cart.count -= 1
     cart.save()
-    return JsonResponse({'status': 'ok', 'count': cart.count, 'cid': cid})
+    return JsonResponse({'status': 'ok', 'count': cart.count, 'gid': gid})
 
 
 # 商品数量增加
 def countadd(request):
     # cid = request.GET.get('cid')
     # print(cid)
-    cid = request.GET.get('gid')
-    print(cid)
-    cart = Cart.objects.filter(id=cid).first()
+    gid = request.GET.get('gid')
+    print(gid)
+    cart = Cart.objects.filter(goods_id=gid).first()
     cart.count += 1
     cart.save()
-    return JsonResponse({'status': 'ok', 'count': cart.count, 'cid': cid})  # bug这里总价未改变
+    return JsonResponse({'status': 'ok', 'count': cart.count, 'gid': gid})  # bug这里总价未改变
