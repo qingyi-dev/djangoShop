@@ -80,7 +80,7 @@
                         </svg>
                         basket</a></li>
                     <li><a href="{% url 'index' %}"> 首页 </a></li>
-                    {% if user %}
+                    {% if uid %}
                         {#                    <li>{{ user }}</li>#}
                         <li><a href="#"> 欢迎！ {{ user.username }}</a></li>
                         <li><a href="{% url 'logout' %}">logout</a></li>
@@ -114,24 +114,19 @@
                     {% for cart in carts %}
                         {% if cart.goods_id == good.id %}
                             <p>购物车数量:<span id="up-count-{{ good.id }}">{{ cart.count }}</span></p>
-                        {% else %}
-{#                            <p>购物车数量:<span id="up-count"> 0 </span></p>#}
                         {% endif %}
                     {% endfor %}
-                    <p id="good-id" data-tag="{{ good.id }}">商品ID:{{ good.id }}</p>
+                    <p>商品ID:{{ good.id }}</p>
                     {% csrf_token %}
-                    <p><a href="#" class="btn btn-primary" id="is-cart-{{ good.id }}" role="button"
-                          type="button">加入购物车</a> <a
-                            href="#" class="btn btn-default"
-                            role="button">确认购买</a>
+                    <p> <a href="javascript:;" class="btn btn-primary" id="is-cart" data-tag="{{ good.id }}" role="button" type="button">加入购物车</a>
+                        <a href="javascript:;" class="btn btn-default" role="button">确认购买</a>
                         {% csrf_token %}
-                        <a href="{% url 'userlove' %}" class="btn btn-default" role="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-heart"
-                                 viewBox="0 0 16 16">
+                        <a href="javascript:;" class="btn btn-default" role="button" id="is-love" data-tag="{{ good.id }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16" id="heart-{{ good.id }}">
                                 <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
                             </svg>
-                        </a></p>
+                        </a>
+                    </p>
                 </div>
             </div>
         </div>
@@ -147,40 +142,38 @@
     {% endfor %}
 
 
-    <div class="col-sm-6 col-md-4">
-        <div class="thumbnail">
-            <img src="/static/image/DR.jpg" alt="...">
-            <div class="caption">
-                <h3>1111</h3>
-                <p>12克拉,尊享版</p>
-                <p><a href="#" class="btn btn-primary" id="is-cart" role="button">加入购物车</a> <a href="#"
-                                                                                               class="btn btn-default"
-                                                                                               role="button">确认购买</a>
-
-                    <a href="#" class="btn btn-default" role="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-heart"
-                             viewBox="0 0 16 16">
-                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                        </svg>
-                    </a></p>
-
-            </div>
-        </div>
-    </div>
-
-
-    <div class="col-sm-6 col-md-4">
-        <div class="thumbnail">
-            <img src="https://elove.darryring.com/group1/M00/29/02/wKgc6F-iIf2AdHHTAAMIOwTJGzY844.jpg" alt="...">
-            <div class="caption">
-                <h3>DR钻戒</h3>
-                <p>12克拉,尊享版</p>
-                <p><a href="#" class="btn btn-primary" role="button">加入购物车</a> <a href="#" class="btn btn-default"
-                                                                                  role="button">确认购买</a></p>
-            </div>
-        </div>
-    </div>
+{#    <div class="col-sm-6 col-md-4">#}
+{#        <div class="thumbnail">#}
+{#            <img src="/static/image/DR.jpg" alt="...">#}
+{#            <div class="caption">#}
+{#                <h3>1111</h3>#}
+{#                <p>12克拉,尊享版</p>#}
+{#                <p><a href="#" class="btn btn-primary" id="is-cart" role="button">加入购物车</a> <a href="#"#}
+{#                                                                                               class="btn btn-default"#}
+{#                                                                                               role="button">确认购买</a>#}
+{##}
+{#                    <a href="#" class="btn btn-default" role="button">#}
+{#                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"#}
+{#                             class="bi bi-heart"#}
+{#                             viewBox="0 0 16 16">#}
+{#                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>#}
+{#                        </svg>#}
+{#                    </a></p>#}
+{##}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#    <div class="col-sm-6 col-md-4">#}
+{#        <div class="thumbnail">#}
+{#            <img src="https://elove.darryring.com/group1/M00/29/02/wKgc6F-iIf2AdHHTAAMIOwTJGzY844.jpg" alt="...">#}
+{#            <div class="caption">#}
+{#                <h3>DR钻戒</h3>#}
+{#                <p>12克拉,尊享版</p>#}
+{#                <p><a href="#" class="btn btn-primary" role="button">加入购物车</a> <a href="#" class="btn btn-default"#}
+{#                                                                                  role="button">确认购买</a></p>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
 {% endblock %}
 
 {% block footer %}
@@ -208,13 +201,14 @@
 <script>
     $(document).ready(function () {
         {#加入购物车#}
-        var gid = $('#good-id').attr('data-tag')
-        $('#is-cart-'+ gid).click(function () {
+        $(document).on('click', '#is-cart', function () {
             let $this = $(this);
+            var gid =$this.attr("data-tag");
+            console.log(gid)
             $.get('/countadd/', {'gid': gid}, function (data) {
                 if (data.status == 'ok') {
-                    var cid = data.cid
-                    $('#up-count-'+ cid).html(data.count)
+                    var gid = data.gid;
+                    $("#up-count-" + gid).html(data.count);
                 }
             })
         });
@@ -222,29 +216,19 @@
     })
 
     {#收藏模块#}
-    $('.btn-default').click(function () {
+    $(document).on('click', '#is-love', function () {
         let $this = $(this);
-        {#$.get('{% url 'userlove' %}', {'gid': {{ good.id }}}, function (data){#}
-        {#$this.children('svg').css({'color': 'red'});#}
-        $.ajax({
-            type: 'get',
-            url: "{% url 'userlove' %}?id={{ good.id }}",
-            traditional: true,
-            {#data: {"gid": {{ good.id }}},#}
-            dataType: 'json',
-            success: function (resp) {
-                console.log(resp)
-                if (resp.msg == 'success') {
-                    $this.children('svg').css({'color': 'red'});
+        var gid =$this.attr("data-tag");
+        $.get('/userlove/', {'gid': gid}, function (data) {
+                if (data.stats == 'ok') {
+                    {#上色#}
+                    var gid = data.gid;
+                    console.log(gid)
+                    {#$('#heart-'+ gid).attr("color","#a95490");#}
+                    $('#heart-'+ gid).css({ "color": "#a95490"});
+                }else {
+                    {#去色#}
                 }
-            }
-            {#$.getJSON('{% url 'userlove' %}', {'gid': {{ good.id }}}, function (data){#}
-            {#    if (data.msg == 'success'){#}
-            {#        $this.children('svg').css({'color': 'red'});#}
-            {#    }#}
-
         });
-
-
     })
 </script>
